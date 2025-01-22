@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:attendance_app/ui/attend/camera_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class Attendance extends StatefulWidget {
@@ -99,6 +103,58 @@ class _AttendanceState extends State<Attendance> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
+              // bikin sebuah objek biar bisa menerima gesture
+              // biar capture nya bisa di klik
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CameraScreen()));
+                },
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(
+                    10,
+                    0,
+                    10,
+                    20,
+                  ),
+                  width: size.width,
+                  height: 150,
+                  child: DottedBorder(
+                    radius: Radius.circular(10),
+                    borderType: BorderType.RRect,
+                    strokeWidth: 1,
+                    dashPattern: [5, 5],
+                    child: SizedBox.expand(
+                        child: FittedBox(
+                            child: image != null
+                                ? Image.file(
+                                    File(image!.path),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Icon(Icons.camera_enhance_outlined))),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: TextField(
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.text,
+                  controller: controller,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                      labelText: "Your Name",
+                      hintText: "Please type your name",
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      labelStyle: TextStyle(fontSize: 14, color: Colors.black),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.blueAccent)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.blueAccent))),
+                ),
+              )
             ],
           ),
         ),
