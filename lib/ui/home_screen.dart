@@ -25,30 +25,30 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // parameter => semua yg dituliskan setelah kurung tutup "()"
-                _buildMenuItem(
-                  context,
-                  imagePath: 'assets/images/attend.png',
-                  label: 'Attendance Report',
-                  destination: Attendance(),
-                ),
+                // _buildMenuItem(
+                //   context,
+                //   imagePath: 'assets/images/attend.png',
+                //   label: 'Attendance Report',
+                //   destination: Attendance(),
+                // ),
                 const SizedBox(
                   height: 40,
                 ),
-                _buildMenuItem(
-                  context,
-                  imagePath: 'assets/images/permission.png',
-                  label: 'Attendance Permission',
-                  destination: Attendance(),
-                ),
+                // _buildMenuItem(
+                //   context,
+                //   imagePath: 'assets/images/permission.png',
+                //   label: 'Attendance Report',
+                //   destination: Attendance(),
+                // ),
                 const SizedBox(
                   height: 40,
                 ),
-                _buildMenuItem(
-                  context,
-                  imagePath: 'assets/images/history.png',
-                  label: 'Attendance History',
-                  destination: Attendance(),
-                ),
+                // _buildMenuItem(
+                //   context,
+                //   imagePath: 'assets/images/history.png',
+                //   label: 'Attendance History',
+                //   destination: Attendance(),
+                // ),
               ],
             ),
           ),

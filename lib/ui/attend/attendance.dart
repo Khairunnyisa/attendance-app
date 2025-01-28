@@ -33,14 +33,14 @@ class _AttendanceState extends State<Attendance> {
 
   @override
   void initState() {
-    handleLocationPermission();
-    setDateTime();
-    setAttendStatus();
+    // handleLocationPermission();
+    // setDateTime();
+    // setAttendStatus();
 
     // ketika image udah gak kosong
     if (image != null) {
       isLoading = true;
-      getGeoLocationPosition();
+      // getGeoLocationPosition();
     }
   }
 

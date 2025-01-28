@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 Future<void> getGeoLocationPosition(
     BuildContext context, Function(Position) onPositionReceived) async {
   Position position = await Geolocator.getCurrentPosition(
+      // ignore: deprecated_member_use
       desiredAccuracy: LocationAccuracy.low);
   onPositionReceived(position);
 }
@@ -35,9 +36,10 @@ Future<bool> handleLocationPermission(BuildContext context) async {
           SizedBox(
             width: 10,
           ),
+          // kalau gak enable: dia bakal otomatis munculin snakbar
           Text(
             "Location services are disabled. Please enable the services.",
-            style: TextStyle(),
+            style: TextStyle(color: Colors.white),
           )
         ],
       ),
@@ -45,6 +47,7 @@ Future<bool> handleLocationPermission(BuildContext context) async {
       shape: StadiumBorder(),
       behavior: SnackBarBehavior.floating,
     ));
+    // ngeblokir user
     return false;
   }
   LocationPermission permission = await Geolocator.checkPermission();
@@ -62,7 +65,7 @@ Future<bool> handleLocationPermission(BuildContext context) async {
               width: 10,
             ),
             Text(
-              "Lccation permission denied",
+              "Location permission denied",
               style: TextStyle(color: Colors.white),
             )
           ],
@@ -95,6 +98,7 @@ Future<bool> handleLocationPermission(BuildContext context) async {
       shape: StadiumBorder(),
       behavior: SnackBarBehavior.floating,
     ));
+    return false;
   }
   return true;
 }
