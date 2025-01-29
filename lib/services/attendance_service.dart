@@ -1,16 +1,19 @@
+import 'dart:math';
+
 import 'package:attendance_app/ui/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 // dari cloud_firestore
-// an entry point for submitting the attendance report
 // menangani pengiriman data dari UI ke firebasefirestore
+// an entry point for submitting the attendance report
 final CollectionReference dataCollection =
     FirebaseFirestore.instance.collection("attendance");
 
 Future<void> submitAttendanceReport(BuildContext context, String address,
     String name, String attendancestatus, String timeStamp) async {
+  // disini ada satu method yaitu showLoaderDialog
   showLoaderDialog(context);
   // kita mau ngumpulin data
   dataCollection.add({
@@ -43,7 +46,9 @@ Future<void> submitAttendanceReport(BuildContext context, String address,
       ));
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    } catch (e) {
+    }
+    // ini lebih baik daripada pake string
+    catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Row(
           children: [
@@ -61,8 +66,31 @@ Future<void> submitAttendanceReport(BuildContext context, String address,
             ))
           ],
         ),
+        // ini untuk error general nya
+        backgroundColor: Colors.blueAccent,
+        shape: StadiumBorder(),
+        behavior: SnackBarBehavior.floating,
       ));
     }
+  }).catchError((error) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        children: [
+          Icon(
+            Icons.error_outline,
+            color: Colors.white,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+              child: Text(
+            "Ups $error",
+            style: TextStyle(color: Colors.white),
+          ))
+        ],
+      ),
+    ));
   });
 }
 
