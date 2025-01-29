@@ -90,7 +90,11 @@ Future<void> submitAttendanceReport(BuildContext context, String address,
           ))
         ],
       ),
+      backgroundColor: Colors.blueAccent,
+      shape: StadiumBorder(),
+      behavior: SnackBarBehavior.floating,
     ));
+    Navigator.of(context).pop();
   });
 }
 
