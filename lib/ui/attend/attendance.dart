@@ -3,6 +3,12 @@ import 'dart:io';
 import 'package:attendance_app/services/location_service.dart';
 import 'package:attendance_app/services/timestamp_service.dart';
 import 'package:attendance_app/ui/attend/camera_screen.dart';
+import 'package:attendance_app/ui/attend/components/app_bar.dart';
+import 'package:attendance_app/ui/attend/components/capture_photo.dart';
+import 'package:attendance_app/ui/attend/components/header.dart';
+import 'package:attendance_app/ui/attend/components/location.dart';
+import 'package:attendance_app/ui/attend/components/name_input.dart';
+import 'package:attendance_app/ui/attend/components/submit_button.dart';
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -27,15 +33,16 @@ class _AttendanceState extends State<Attendance> {
       timeStampPlaceholder = "",
       statusPlaceHolder = "Attend";
   bool isLoading = false;
-  // double untuk desimal
-  // lat = vertical, long = horizontal
-  double lat = 0.0, long = 0.0;
-  int dateHourse = 0, minute = 0;
-  // kayak study case yg auth, kita mau masukin nama disini
-  final controller = TextEditingController();
-  // FirebaseFirestore.instance.collection('attendance') => itu yg dimasukin key nya
-  final CollectionReference dataCollection =
-      FirebaseFirestore.instance.collection('attendance');
+  final controllerName = TextEditingController();
+  // // double untuk desimal
+  // // lat = vertical, long = horizontal
+  // double lat = 0.0, long = 0.0;
+  // int dateHourse = 0, minute = 0;
+  // // kayak study case yg auth, kita mau masukin nama disini
+  // final controller = TextEditingController();
+  // // FirebaseFirestore.instance.collection('attendance') => itu yg dimasukin key nya
+  // final CollectionReference dataCollection =
+  //     FirebaseFirestore.instance.collection('attendance');
 
   @override
   void initState() {
@@ -82,6 +89,26 @@ class _AttendanceState extends State<Attendance> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: buildAppBar(context),
+      body: SingleChildScrollView(
+        child: Card(
+          color: Colors.white,
+          margin: EdgeInsets.fromLTRB(10, 10, 10, 30),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              elevation: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  buildHeader(),
+                  buildCapturePhotoSection(context, size, image),
+                  buildNameInputField(controllerName),
+                  buildLocationSection(isLoading, adressPlaceholder),
+                  buildSubmitButton(context, size, image, controllerName, adressPlaceholder, statusPlaceHolder, timePlaceholder)
+                ],
+              ) ,
+        ),
+      ),
     );
   }
 }
