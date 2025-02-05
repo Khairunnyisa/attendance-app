@@ -50,7 +50,7 @@ class FaceDetectorComponent{
         print('Tracking ID $trackingId');
         
       }
-      finshing face_detector function
+      
       
     }
   }
