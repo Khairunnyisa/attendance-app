@@ -25,7 +25,7 @@ class SnackBarComponent {
       backgroundColor: isError ? Colors.red : Colors.blueGrey,
       shape: StadiumBorder(),
       behavior: SnackBarBehavior.floating,
-      make a static snackbar for permit feature
+      
     ));
   }
 }
