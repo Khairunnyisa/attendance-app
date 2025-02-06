@@ -12,10 +12,10 @@ AppBar buildAppBar(BuildContext context) {
       onPressed: () => Navigator.of(context).pop(),
     ),
     title: Text(
-      "Attendance Menu",
+      "Permission Request Menu",
       style: TextStyle(
         color: Colors.white,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
     ),
