@@ -19,7 +19,8 @@ Future<void> submitAttendanceReport(BuildContext context, String address,
   dataCollection.add({
     'address': address,
     'name': name,
-    'description': attendancestatus
+    'description': attendancestatus,
+    'time': timeStamp,
   }).then((result) {
     Navigator.of(context).pop();
     try {
