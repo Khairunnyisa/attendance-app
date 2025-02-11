@@ -1,14 +1,178 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FormBody extends StatelessWidget {
   const FormBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(padding: EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text("FORM BODY CONTENT")],
-    ),);
+    final nameController = TextEditingController();
+    final formController = TextEditingController();
+    final toController = TextEditingController();
+    String dropValueCategories = "Please choose: ";
+    // kalau misalakn mau dikreasiin bisa pake dynamic, kayak beda warna
+    var categoriesList = <String>[
+      "Please choose: ",
+      "Sick",
+      "IDN Teaching",
+      "Others"
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.text,
+            controller: nameController,
+            decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                labelText: "Your Name",
+                hintText: "Please input your name",
+                labelStyle: const TextStyle(fontSize: 14, color: Colors.black),
+                hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Colors.blueAccent))),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
+            child: Text(
+              "Description",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+          ),
+          // container untuk dropdown
+          Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: Colors.blueAccent,
+                      style: BorderStyle.solid,
+                      width: 1)),
+              child: DropdownButton(
+                dropdownColor: Colors.white,
+                value: dropValueCategories,
+                onChanged: (value) {
+                  dropValueCategories = value.toString();
+                },
+                items: categoriesList.map((value) {
+                  return DropdownMenuItem(
+                    value: value,
+                    child: Text(
+                      value.toString(),
+                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                    ),
+                  );
+                  // method toList berfungsi untuk merngkonversi sebuah data acak menjadi berurutan pada list
+                }).toList(),
+                icon: const Icon(Icons.arrow_drop_down),
+                iconSize: 24,
+                elevation: 16,
+                style: const TextStyle(fontSize: 14, color: Colors.black),
+                underline: Container(
+                  height: 2,
+                  color: Colors.blueGrey,
+                ),
+                isExpanded: true,
+              )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        "From",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      Expanded(
+                        child: TextField(
+                            readOnly: true,
+                            // kenapa pake async=> karena showDatePicker adalah sebuah future
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  // initialData: sebelum si user milih, kita udah ngasih tanggal sekarang
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2025),
+                                  lastDate: DateTime(2025));
+                              //
+                              if (pickedDate != null) {
+                                // mengonversikan data detail tanggal yang diambil dari picker date menjadi format dd/mm/yy
+                                formController.text =
+                                    DateFormat('dd/mm/yy').format(pickedDate);
+                              }
+                            },
+                            style: TextStyle(fontSize: 16, color: Colors.black),
+                            controller: formController,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(8),
+                              hintText: "Starting Form",
+                              hintStyle:
+                                  TextStyle(fontSize: 16, color: Colors.grey),
+                            )),
+                      ),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      Expanded(
+                          child: Row(
+                        children: [
+                          Text(
+                            "Until:",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          Expanded(
+                            child: TextField(
+                              readOnly: true,
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2025),
+                                    lastDate: DateTime(2025));
+                                if (pickedDate != null) {
+                                  toController.text =
+                                      DateFormat('dd/mm/yy').format(pickedDate);
+                                }
+                              },
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.black),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(8),
+                                hintText: "Until",
+                                hintStyle:
+                                    TextStyle(fontSize: 16, color: Colors.grey),
+                              ),
+                            ),
+                          )
+                        ],
+                      ))
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

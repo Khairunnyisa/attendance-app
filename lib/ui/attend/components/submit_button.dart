@@ -2,7 +2,15 @@ import 'package:attendance_app/services/attendance_service.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-Container buildSubmitButton(BuildContext context, Size size, XFile? image, TextEditingController controllerName, String address, String status, String timeStamp){
+Container buildSubmitButton(
+  BuildContext context, 
+  Size size, 
+  XFile? image, 
+  TextEditingController controllerName, 
+  String address, 
+  String status, 
+  String timeStamp)
+  {
   return Container(
     alignment: Alignment.center,
     margin: EdgeInsets.all(10),
