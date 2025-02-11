@@ -9,7 +9,7 @@ class DeleteDialog extends StatelessWidget {
   final CollectionReference dataCollection;
 
   const DeleteDialog(
-      {super.key, required this.documentID, required this.dataCollection, required Null Function() onConfirm});
+      {super.key, required this.documentID, required this.dataCollection, Null Function()? onConfirm});
 
   @override
   Widget build(BuildContext context) {
