@@ -9,35 +9,36 @@ class DeleteDialog extends StatelessWidget {
   final CollectionReference dataCollection;
 
   const DeleteDialog(
-      {super.key, required this.documentID, required this.dataCollection});
+      {super.key, required this.documentID, required this.dataCollection, required Null Function() onConfirm});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
+      title: const Text(
         "Delete Data",
         style: TextStyle(
           fontSize: 18,
           color: Colors.black,
         ),
       ),
-      content: Text(
+      content: const Text(
         "Are you sure want to delete this data",
         style: TextStyle(fontSize: 14, color: Colors.black),
       ),
       actions: [
         TextButton(
-          child: Text(
+          child: const Text(
             "Yes",
             style: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onPressed: () {
+            // untuk berkomunikasi dengan database, untuk melakukan penghapusan data dari database
             dataCollection.doc(documentID).delete();
             Navigator.pop(context);
           },
         ),
         TextButton(
-          child: Text(
+          child: const Text(
             "No",
             style: TextStyle(fontSize: 14, color: Colors.black),
           ),
